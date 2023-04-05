@@ -26,12 +26,13 @@
   <dependencies>
     <!--+
         !   JavaFX, GUI
-        !-->
+
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>11</version>
     </dependency>
+    !-->
     <!--+
         !   Apache Commons - Lang
         !     mainly used here for introspection tooling
@@ -128,7 +129,7 @@
             <artifactId>javafx-maven-plugin</artifactId>
             <version>0.0.8</version>
             <configuration>
-                <mainClass>launcher.Launcher</mainClass>
+                <mainClass>launcher.localLauncher.LocalLauncherEleve</mainClass>
             </configuration>
         </plugin>
 

@@ -30,7 +30,6 @@ public class LocalLauncherEleve extends Application {
 	private ChessModel chessModel = null;
 	private ChessController chessController = null;
 	private Parent chessGameGUI = null;
-	
 	private IntegerProperty height = new SimpleIntegerProperty();
 	private IntegerProperty width = new SimpleIntegerProperty();
 	

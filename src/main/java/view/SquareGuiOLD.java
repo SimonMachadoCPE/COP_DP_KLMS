@@ -1,19 +1,9 @@
 package view;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -28,14 +18,14 @@ import shared.PieceSquareColor;
  * leur couleur est initialisé par les couleurs par défaut du jeu
  *
  */
-class SquareGui extends BorderPane implements ChessSquareGui, ChangeListener, ObservableValue {
+class SquareGuiOLD extends BorderPane implements ChessSquareGui {
 
 	private PieceSquareColor squareColor;    	// le carré est Noir ou Blanc
 	private GUICoord gUICoord;					// les coordonnées du carré sur le damier
 	boolean isLight;							// true si on "allume" la case de destination
 	private ObjectProperty<Color> backgroundColor = new SimpleObjectProperty<Color>();
 
-	public SquareGui (GUICoord gUICoord, PieceSquareColor squareColor) {
+	public SquareGuiOLD(GUICoord gUICoord, PieceSquareColor squareColor) {
 		super();
 		this.squareColor = squareColor;
 		this.gUICoord = gUICoord;
@@ -80,8 +70,7 @@ class SquareGui extends BorderPane implements ChessSquareGui, ChangeListener, Ob
 	 */
 	@Override
 	public void paint () {
-		ObservableValue observableValue = null;
-		this.changed(observableValue, PaintStyle.GRADIENT, PaintStyle.SOLID);
+		
 		Color color =  this.isLight ? GuiConfig.lightColor.get() : this.backgroundColor.get();
 		
 		if(PaintStyle.GRADIENT.equals(GuiConfig.paintStyle.get())) {
@@ -95,37 +84,6 @@ class SquareGui extends BorderPane implements ChessSquareGui, ChangeListener, Ob
 		
 		this.setBorder(new Border(new BorderStroke(GuiConfig.blackSquareColor.get(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	}
+	
 
-
-	@Override
-	public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-		if(observable != null){
-			paint();
-		}
-	}
-
-	@Override
-	public void addListener(ChangeListener listener) {
-
-	}
-
-	@Override
-	public void removeListener(ChangeListener listener) {
-
-	}
-
-	@Override
-	public Object getValue() {
-		return null;
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-
-	}
 }
