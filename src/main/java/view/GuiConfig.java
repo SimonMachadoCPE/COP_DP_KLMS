@@ -29,10 +29,10 @@ public class GuiConfig {
 	 * être importées d'un fichier de config
 	 */
 	public static void setInitState() {
-		GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
+		//GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
 		GuiConfig.beginColor.set(PieceSquareColor.WHITE);
-		GuiConfig.blackSquareColor.set(Color.rgb(139,69,0,1.0));
-		GuiConfig.whiteSquareColor.set(Color.rgb(255,250,240,1.0));
+		GuiConfig.whiteSquareColor.set(Color.rgb(118,150,86,1.0));
+		GuiConfig.blackSquareColor.set(Color.rgb(238,238,210,1.0));
 		GuiConfig.lightColor.set(Color.BLUE);
 		GuiConfig.height.set(700);
 		GuiConfig.width.set(700);
