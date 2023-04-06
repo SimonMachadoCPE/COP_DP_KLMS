@@ -51,6 +51,8 @@ class SquareGui extends BorderPane implements ChessSquareGui {
 
 		// On dessine un carré
 		this.paint();
+
+		//Ajout des listeners sur les attributs pour détecter les changements
 		GuiConfig.paintStyle.addListener(this);
 		GuiConfig.blackSquareColor.addListener(this);
 		GuiConfig.whiteSquareColor.addListener(this);

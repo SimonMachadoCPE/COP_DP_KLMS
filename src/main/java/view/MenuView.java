@@ -38,8 +38,8 @@ public class MenuView extends MenuBar {
 	private Menu newMenuColor () {
 
 		Menu menu = new Menu("Couleur d'affichage");
-		MenuItem color1 = new MenuItem("Couleur cases blanches");
-		MenuItem color2 = new MenuItem("Couleur cases noires");
+		MenuItem color1 = new MenuItem("Couleur cases noires");
+		MenuItem color2 = new MenuItem("Couleur cases blanches");
 
 		color1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
