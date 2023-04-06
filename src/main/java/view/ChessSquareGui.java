@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
 import shared.GUICoord;
 
 /**
@@ -10,7 +11,7 @@ import shared.GUICoord;
  * fixée à la création
  * 
  */
-public interface ChessSquareGui   {
+public interface ChessSquareGui extends ChangeListener {
 
 	/**
 	 * @return the coord

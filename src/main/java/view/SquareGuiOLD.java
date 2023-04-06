@@ -18,7 +18,8 @@ import shared.PieceSquareColor;
  * leur couleur est initialisé par les couleurs par défaut du jeu
  *
  */
-class SquareGuiOLD extends BorderPane implements ChessSquareGui {
+
+class SquareGuiOLD extends BorderPane {//implements ChessSquareGui
 
 	private PieceSquareColor squareColor;    	// le carré est Noir ou Blanc
 	private GUICoord gUICoord;					// les coordonnées du carré sur le damier
@@ -47,7 +48,7 @@ class SquareGuiOLD extends BorderPane implements ChessSquareGui {
 	/**
 	 * @return the coord
 	 */
-	@Override
+	//@Override
 	public GUICoord getCoord() {
 		
 		return gUICoord;
@@ -57,7 +58,7 @@ class SquareGuiOLD extends BorderPane implements ChessSquareGui {
 	 * @param isLight
 	 * positionne la couleur en fonction du booléen
 	 */
-	@Override
+	//@Override
 	public void resetColor(boolean isLight) {
 	
 		this.isLight = isLight;
@@ -68,7 +69,7 @@ class SquareGuiOLD extends BorderPane implements ChessSquareGui {
 	 * Permet de redessiner le carré en cas de changement de couleur
 	 * dans la factory
 	 */
-	@Override
+	//@Override
 	public void paint () {
 		
 		Color color =  this.isLight ? GuiConfig.lightColor.get() : this.backgroundColor.get();

@@ -4,6 +4,9 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ButtonType;
@@ -108,9 +111,8 @@ public class MenuView extends MenuBar {
 			@Override
 			public void handle (ActionEvent event) {
 								 /* sans pattern Command */
-								GuiConfig.paintStyle.set(PaintStyle.GRADIENT);			
+								GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
 
-				
 			}
 		});
 
@@ -118,11 +120,10 @@ public class MenuView extends MenuBar {
 			@Override
 			public void handle (ActionEvent event) {
 								 /* sans pattern Command */
-								GuiConfig.paintStyle.set(PaintStyle.SOLID);			
-
-				
+								GuiConfig.paintStyle.set(PaintStyle.SOLID);
 			}
 		});
+
 
 		menu.getItems().addAll(style1, style2);
 		return menu;
@@ -151,6 +152,4 @@ public class MenuView extends MenuBar {
 		menu.getItems().addAll(undo, redo);
 		return menu;
 	}
-
-
 }
