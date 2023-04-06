@@ -30,10 +30,10 @@ public class GuiFactory {
 		GUICoord gUICoord = new GUICoord(col, ligne);
 		
 		/* Version sans Decorator avec ou sans Observer  */
-		square = new SquareGui(gUICoord, squareColor);
+		//square = new SquareGuiObserverChangeListener(gUICoord, squareColor);
 		
 		/* Version avec Decorator et Observer */
-//		square = new SquareGuiDecorator(new SquareGui(gUICoord, squareColor)); 
+		square = new SquareGuiDecorator(new SquareGui(gUICoord, squareColor));
 
 		return square;
 	}

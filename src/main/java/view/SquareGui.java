@@ -1,19 +1,9 @@
 package view;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -28,6 +18,7 @@ import shared.PieceSquareColor;
  * leur couleur est initialisé par les couleurs par défaut du jeu
  *
  */
+
 class SquareGui extends BorderPane implements ChessSquareGui {
 
 	private PieceSquareColor squareColor;    	// le carré est Noir ou Blanc
@@ -35,7 +26,7 @@ class SquareGui extends BorderPane implements ChessSquareGui {
 	boolean isLight;							// true si on "allume" la case de destination
 	private ObjectProperty<Color> backgroundColor = new SimpleObjectProperty<Color>();
 
-	public SquareGui (GUICoord gUICoord, PieceSquareColor squareColor) {
+	public SquareGui(GUICoord gUICoord, PieceSquareColor squareColor) {
 		super();
 		this.squareColor = squareColor;
 		this.gUICoord = gUICoord;
@@ -52,10 +43,6 @@ class SquareGui extends BorderPane implements ChessSquareGui {
 		// On dessine un carré
 		this.paint();
 
-		//Ajout des listeners sur les attributs pour détecter les changements
-		GuiConfig.paintStyle.addListener(this);
-		GuiConfig.blackSquareColor.addListener(this);
-		GuiConfig.whiteSquareColor.addListener(this);
 	}
 
 	/**
@@ -84,6 +71,7 @@ class SquareGui extends BorderPane implements ChessSquareGui {
 	 */
 	@Override
 	public void paint () {
+		
 		Color color =  this.isLight ? GuiConfig.lightColor.get() : this.backgroundColor.get();
 		
 		if(PaintStyle.GRADIENT.equals(GuiConfig.paintStyle.get())) {
@@ -97,22 +85,6 @@ class SquareGui extends BorderPane implements ChessSquareGui {
 		
 		this.setBorder(new Border(new BorderStroke(GuiConfig.blackSquareColor.get(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	}
+	
 
-	@Override
-	public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-		if(newValue instanceof PaintStyle){
-			GuiConfig.paintStyle.set((PaintStyle) newValue);
-		}
-		else if(newValue instanceof Color){
-			Color newColor = (Color) newValue;
-			Color oldColor = (Color) oldValue;
-			if(GuiConfig.blackSquareColor.get() == oldColor){
-				GuiConfig.blackSquareColor.set(newColor);
-			}
-			else if(GuiConfig.whiteSquareColor.get() == oldColor){
-				GuiConfig.whiteSquareColor.set(newColor);
-			}
-		}
-		this.paint();
-	}
 }

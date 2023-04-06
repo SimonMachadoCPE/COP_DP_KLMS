@@ -2,8 +2,17 @@ package view;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -18,15 +27,14 @@ import shared.PieceSquareColor;
  * leur couleur est initialisé par les couleurs par défaut du jeu
  *
  */
-
-class SquareGuiOLD extends BorderPane {//implements ChessSquareGui
+class SquareGuiObserverChangeListener extends BorderPane implements ChessSquareGui, ChangeListener {
 
 	private PieceSquareColor squareColor;    	// le carré est Noir ou Blanc
 	private GUICoord gUICoord;					// les coordonnées du carré sur le damier
 	boolean isLight;							// true si on "allume" la case de destination
 	private ObjectProperty<Color> backgroundColor = new SimpleObjectProperty<Color>();
 
-	public SquareGuiOLD(GUICoord gUICoord, PieceSquareColor squareColor) {
+	public SquareGuiObserverChangeListener(GUICoord gUICoord, PieceSquareColor squareColor) {
 		super();
 		this.squareColor = squareColor;
 		this.gUICoord = gUICoord;
@@ -43,12 +51,16 @@ class SquareGuiOLD extends BorderPane {//implements ChessSquareGui
 		// On dessine un carré
 		this.paint();
 
+		//Ajout des listeners sur les attributs pour détecter les changements
+		GuiConfig.paintStyle.addListener(this);
+		GuiConfig.blackSquareColor.addListener(this);
+		GuiConfig.whiteSquareColor.addListener(this);
 	}
 
 	/**
 	 * @return the coord
 	 */
-	//@Override
+	@Override
 	public GUICoord getCoord() {
 		
 		return gUICoord;
@@ -58,7 +70,7 @@ class SquareGuiOLD extends BorderPane {//implements ChessSquareGui
 	 * @param isLight
 	 * positionne la couleur en fonction du booléen
 	 */
-	//@Override
+	@Override
 	public void resetColor(boolean isLight) {
 	
 		this.isLight = isLight;
@@ -69,9 +81,8 @@ class SquareGuiOLD extends BorderPane {//implements ChessSquareGui
 	 * Permet de redessiner le carré en cas de changement de couleur
 	 * dans la factory
 	 */
-	//@Override
+	@Override
 	public void paint () {
-		
 		Color color =  this.isLight ? GuiConfig.lightColor.get() : this.backgroundColor.get();
 		
 		if(PaintStyle.GRADIENT.equals(GuiConfig.paintStyle.get())) {
@@ -85,6 +96,22 @@ class SquareGuiOLD extends BorderPane {//implements ChessSquareGui
 		
 		this.setBorder(new Border(new BorderStroke(GuiConfig.blackSquareColor.get(), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	}
-	
 
+	@Override
+	public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+		if(newValue instanceof PaintStyle){
+			GuiConfig.paintStyle.set((PaintStyle) newValue);
+		}
+		else if(newValue instanceof Color){
+			Color newColor = (Color) newValue;
+			Color oldColor = (Color) oldValue;
+			if(GuiConfig.blackSquareColor.get() == oldColor){
+				GuiConfig.blackSquareColor.set(newColor);
+			}
+			else if(GuiConfig.whiteSquareColor.get() == oldColor){
+				GuiConfig.whiteSquareColor.set(newColor);
+			}
+		}
+		this.paint();
+	}
 }

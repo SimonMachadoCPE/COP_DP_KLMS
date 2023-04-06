@@ -11,7 +11,7 @@ import shared.GUICoord;
  * fixée à la création
  * 
  */
-public interface ChessSquareGui extends ChangeListener {
+public interface ChessSquareGui {
 
 	/**
 	 * @return the coord
