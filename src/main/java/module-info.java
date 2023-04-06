@@ -18,8 +18,8 @@ module irc4chessbase {
     exports model.noStrategy.pieces.templateMethod to org.apache.commons.lang3;
 
 
-    // requires javafx.base;
+    requires javafx.base;
     requires transitive javafx.controls;
-    // requires javafx.graphics;
+    requires javafx.graphics;
     requires org.apache.commons.lang3;
 }
