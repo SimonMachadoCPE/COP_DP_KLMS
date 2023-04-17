@@ -4,9 +4,6 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ButtonType;
@@ -17,8 +14,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
-import view.GuiConfig;
-import view.PaintStyle;
 
 
 /**
@@ -26,10 +21,8 @@ import view.PaintStyle;
  * Cette classe est le menu du jeu d'échec
  */
 public class MenuView extends MenuBar {
-
 	public MenuView () {
 		super();
-
 		this.getMenus().add(newMenuStyle());
 		this.getMenus().add(newMenuColor());
 		this.getMenus().add(newMenuEdit());
@@ -110,17 +103,19 @@ public class MenuView extends MenuBar {
 		style1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
-								 /* sans pattern Command */
-								GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
-
+				 /* sans pattern Command */
+				GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
+				abstractInvoker.pushHistory(PaintStyle.GRADIENT);
 			}
 		});
+
 
 		style2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
-								 /* sans pattern Command */
-								GuiConfig.paintStyle.set(PaintStyle.SOLID);
+				 /* sans pattern Command */
+				GuiConfig.paintStyle.set(PaintStyle.SOLID);
+				abstractInvoker.pushHistory(PaintStyle.SOLID);
 			}
 		});
 
@@ -138,14 +133,14 @@ public class MenuView extends MenuBar {
 		undo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
-				// TODO
+				abstractInvoker.undo();
 			}
 		});
 
 		redo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
-				// TODO
+				abstractInvoker.redo();
 			}
 		});
 
