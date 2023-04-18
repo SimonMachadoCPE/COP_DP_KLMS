@@ -3,6 +3,7 @@ package view.command.concreteCommands;
 import view.GuiConfig;
 import view.PaintStyle;
 import view.command.commands.MementoableCommand;
+import view.command.memento.Memento;
 
 public class StyleCommand implements MementoableCommand {
 

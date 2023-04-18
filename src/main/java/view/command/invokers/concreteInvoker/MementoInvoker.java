@@ -1,5 +1,4 @@
 package view.command.invokers.concreteInvoker;
-package view.command.invokers.concreteInvokers;
 
 import java.util.Deque;
 import java.util.LinkedList;

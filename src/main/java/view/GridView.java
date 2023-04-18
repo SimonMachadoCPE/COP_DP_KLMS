@@ -8,6 +8,7 @@ import controller.ChessController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -106,6 +107,9 @@ class GridView extends GridPane implements ChessView{
 
 			}
 		}
+//		for (Node n: this.getChildren()) {
+//			System.out.println((SquareGuiDecorator)n);
+//		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -330,7 +334,5 @@ class GridView extends GridPane implements ChessView{
 		square = (BorderPane) this.getChildren().get(nbLig*gUICoord.getY()+gUICoord.getX());
 		return square;
 	}
-	
-
 }
 

@@ -3,6 +3,7 @@ package view.command.concreteCommands;
 import javafx.scene.paint.Color;
 import view.GuiConfig;
 import view.command.commands.MementoableCommand;
+import view.command.memento.Memento;
 
 public class ColorBlackCommand implements MementoableCommand {
 

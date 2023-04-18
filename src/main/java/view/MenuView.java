@@ -14,6 +14,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import view.command.commands.Command;
+import view.command.commands.MementoableCommand;
+import view.command.concreteCommands.ColorBlackCommand;
+import view.command.concreteCommands.ColorWhiteCommand;
+import view.command.concreteCommands.StyleCommand;
+import view.command.invokers.Invoker;
+import view.command.invokers.concreteInvoker.MementoInvoker;
 
 
 /**
@@ -21,11 +28,16 @@ import javafx.scene.control.ToggleGroup;
  * Cette classe est le menu du jeu d'échec
  */
 public class MenuView extends MenuBar {
+
+	private Invoker<Command> invoker ;
+
 	public MenuView () {
 		super();
 		this.getMenus().add(newMenuStyle());
 		this.getMenus().add(newMenuColor());
 		this.getMenus().add(newMenuEdit());
+
+		invoker = new MementoInvoker<Command>();
 	}
 
 	private Menu newMenuColor () {
@@ -42,10 +54,12 @@ public class MenuView extends MenuBar {
 
 				ColorPicker colorPicker = new ColorPicker(GuiConfig.whiteSquareColor.get());
 				colorPicker.setOnAction(colorEvent -> {
-										/* sans pattern Command */
-										GuiConfig.whiteSquareColor.set(colorPicker.getValue());
+					/* sans pattern Command */
+					//GuiConfig.whiteSquareColor.set(colorPicker.getValue());
 
-					
+					/* AVEC pattern command */
+					Command command = new ColorBlackCommand(colorPicker.getValue());
+					invoker.exec((MementoableCommand) command);
 					colorDialog.close();
 				});
 
@@ -62,10 +76,12 @@ public class MenuView extends MenuBar {
 
 				ColorPicker colorPicker = new ColorPicker(GuiConfig.blackSquareColor.get());
 				colorPicker.setOnAction(colorEvent -> {
-										/* sans pattern Command */
-										GuiConfig.blackSquareColor.set(colorPicker.getValue());
+					/* sans pattern Command */
+					//GuiConfig.blackSquareColor.set(colorPicker.getValue());
 
-					
+					/* AVEC pattern command */
+					Command command = new ColorBlackCommand(colorPicker.getValue());
+					invoker.exec((MementoableCommand) command);
 					colorDialog.close();
 				});
 
@@ -104,8 +120,12 @@ public class MenuView extends MenuBar {
 			@Override
 			public void handle (ActionEvent event) {
 				 /* sans pattern Command */
-				GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
-				abstractInvoker.pushHistory(PaintStyle.GRADIENT);
+				//GuiConfig.paintStyle.set(PaintStyle.GRADIENT);
+
+				/* AVEC pattern command */
+				Command command = new StyleCommand(PaintStyle.GRADIENT);
+				invoker.exec((MementoableCommand) command);
+
 			}
 		});
 
@@ -114,8 +134,11 @@ public class MenuView extends MenuBar {
 			@Override
 			public void handle (ActionEvent event) {
 				 /* sans pattern Command */
-				GuiConfig.paintStyle.set(PaintStyle.SOLID);
-				abstractInvoker.pushHistory(PaintStyle.SOLID);
+				//GuiConfig.paintStyle.set(PaintStyle.SOLID);
+				/* AVEC pattern command */
+				Command command = new StyleCommand(PaintStyle.SOLID);
+				invoker.exec((MementoableCommand) command);
+
 			}
 		});
 
@@ -133,14 +156,16 @@ public class MenuView extends MenuBar {
 		undo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
-				abstractInvoker.undo();
+				System.out.println("UNDO");
+				invoker.undo();
 			}
 		});
 
 		redo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle (ActionEvent event) {
-				abstractInvoker.redo();
+				System.out.println("REDO");
+				invoker.redo();
 			}
 		});
 

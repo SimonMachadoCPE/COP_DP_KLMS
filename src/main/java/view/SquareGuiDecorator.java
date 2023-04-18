@@ -23,7 +23,7 @@ public class SquareGuiDecorator extends BorderPane implements ChessSquareGui, Ch
 
     @Override
     public GUICoord getCoord() {
-        return null;
+        return squareGui.getCoord();
     }
 
     @Override
